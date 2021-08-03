@@ -10,8 +10,7 @@ Download the repository using git:
 ```
 git clone https://github.com/ranchimall/FLO-signValidator.git
 ```
-
-## Starting the server
+### Starting the server
 The server can be started using the following command
 ```
 node ./start.js
@@ -21,7 +20,7 @@ The default port is 8080. To host the server in different port, pass the port nu
 node ./start.js <port>
 ```
 
-### Usage
+## Usage (for clients)
 The POST request must consist of a JSON string with the following:
 - floID: floID of the signer.
 - pubKey: pubKey of the signer.
