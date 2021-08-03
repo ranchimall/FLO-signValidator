@@ -12,20 +12,19 @@ module.exports = function startServer(port) {
             req.on('data', chunk => data += chunk);
             req.on('end', () => {
                 //process verification
-                let result = {};
+                let result = {
+                    success: 0,
+                    floid_pubkey_match: 0,
+                    message_sign_match: 0
+                };
                 try {
                     var d = JSON.parse(data);
-                    if (!floCrypto.validateAddr(d.floID))
-                        result.success = 0;
-                    else if (floCrypto.getFloID(d.pubKey) !== d.floID)
-                        result.success = 0;
-                    else if (!floCrypto.verifySign(d.message, d.sign, d.pubKey))
-                        result.success = 0;
-                    else
-                        result.success = 1;
-                } catch (error) {
-                    result.success = 0;
-                } finally {
+                    if (floCrypto.validateAddr(d.floID) && floCrypto.getFloID(d.pubKey) == d.floID)
+                        result.floid_pubkey_match = 1;
+                    if (floCrypto.verifySign(d.message, d.sign, d.pubKey))
+                        result.message_sign_match = 1;
+                    result.success = result.floid_pubkey_match && result.message_sign_match
+                } catch (error) {} finally {
                     res.end(JSON.stringify(result));
                 };
             });
