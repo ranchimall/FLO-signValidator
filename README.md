@@ -1,7 +1,28 @@
 # FLO-signValidator
-The server will verify the signature sent via POST request.
+This nodejs Server will verify the signature sent via POST request.
 
-The post request must consist of a JSON string with the following:
+
+## Installation (for server host only)
+### Pre-requisite
+- [X] Nodejs `version >= 12.9`
+### Download
+Download the repository using git:
+```
+git clone https://github.com/ranchimall/FLO-signValidator.git
+```
+
+## Starting the server
+The server can be started using the following command
+```
+node ./start.js
+```
+The default port is 8080. To host the server in different port, pass the port number in command line argument as shown below
+```
+node ./start.js <port>
+```
+
+### Usage
+The POST request must consist of a JSON string with the following:
 - floID: floID of the signer.
 - pubKey: pubKey of the signer.
 - message: message that was signed.
