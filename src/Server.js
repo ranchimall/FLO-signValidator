@@ -12,21 +12,19 @@ module.exports = function startServer(port) {
             req.on('data', chunk => data += chunk);
             req.on('end', () => {
                 //process verification
-                let result = {
-                    success: false
-                };
+                let result = {};
                 try {
                     var d = JSON.parse(data);
                     if (!floCrypto.validateAddr(d.floID))
-                        result.reason = "Invalid floID";
+                        result.success = 0;
                     else if (floCrypto.getFloID(d.pubKey) !== d.floID)
-                        result.reason = "Public key mismatched";
+                        result.success = 0;
                     else if (!floCrypto.verifySign(d.message, d.sign, d.pubKey))
-                        result.reason = "Signature not verified";
+                        result.success = 0;
                     else
-                        result.success = true;
+                        result.success = 1;
                 } catch (error) {
-                    result.reason = "Invalid request";
+                    result.success = 0;
                 } finally {
                     res.end(JSON.stringify(result));
                 };
