@@ -55,10 +55,7 @@ fetch("https://flo-sign-validator.duckdns.org", {
     pubKey: pubKey,
     message: message,
     sign: sign
-  }),
-  headers: {
-    "Content-type": "application/json; charset=UTF-8",
-  },
+  })
 })
   .then(function (response) {
     return response.json();
